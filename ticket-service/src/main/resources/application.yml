@@ -1,0 +1,23 @@
+#==============================
+# SPRING
+#==============================
+spring:
+  application:
+    name: microservicesdemo-ticket-service
+  jpa:
+    show-sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: create
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:ticket}?createDatabaseIfNotExist=true
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:password}
+
+#==============================
+# CONFIGURATION
+#==============================
+server:
+  port: 8585
