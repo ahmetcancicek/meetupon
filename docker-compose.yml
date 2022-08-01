@@ -1,0 +1,36 @@
+version: '3.1'
+
+services:
+
+  ticket-service:
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: $MYSQL_ROOT_PASSWORD
+    restart: on-failure
+    build:
+      context: ticket-service
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+    ports:
+      - "8585:8585"
+
+  mysql:
+    image: mysql:8.0.27
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+    volumes:
+      - ./docs/ddl:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+
+volumes:
+  mysql_data:
+    name: microservicesdemo_mysql_data
+
+
+networks:
+  default:
+    name: microservicesdemo_network
