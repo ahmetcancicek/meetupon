@@ -1,0 +1,2 @@
+DELETE FROM ticket;
+DELETE FROM meetup;
