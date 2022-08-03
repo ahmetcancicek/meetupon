@@ -1,29 +1,47 @@
 package com.microservicesdemo.ticketservice.model;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.microservicesdemo.ticketservice.dto.Currency;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @Entity
+@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
 @Table(name = "meetup")
 public class Meetup extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "id", unique = true, nullable = false)
+    private String id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "name")
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "price")
     private BigDecimal price;
 
-    @Column(nullable = false)
+    @Enumerated
+    @Column(name = "currency")
+    private Currency currency;
+
+    @Column(nullable = false, name = "event_date")
     private LocalDateTime eventDate;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "url")
     private String url;
 }
