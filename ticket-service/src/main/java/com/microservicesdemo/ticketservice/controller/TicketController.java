@@ -1,6 +1,5 @@
 package com.microservicesdemo.ticketservice.controller;
 
-import com.microservicesdemo.ticketservice.dto.ApiResponse;
 import com.microservicesdemo.ticketservice.dto.TicketRequest;
 import com.microservicesdemo.ticketservice.exception.TicketCreateException;
 import com.microservicesdemo.ticketservice.service.TicketService;
@@ -12,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/tickets")
@@ -21,8 +22,8 @@ public class TicketController {
     private final TicketService ticketService;
 
     @PostMapping
-    public ResponseEntity createTicket(@RequestBody TicketRequest ticketRequest) {
-        return ticketService.createTicket(ticketRequest).map(ticketResponse -> {
+    public ResponseEntity reserveTicket(@Valid @RequestBody TicketRequest ticketRequest) {
+        return ticketService.reserve(ticketRequest).map(ticketResponse -> {
             log.info("Ticket created successfully [{}]", ticketResponse.toString());
             return ResponseEntity.ok(ticketResponse);
         }).orElseThrow(() -> new TicketCreateException(ticketRequest.toString(), ""));

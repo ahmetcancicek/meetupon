@@ -86,27 +86,8 @@ public class TicketControllerTest {
     }
 
     @Test
-    public void givenIsValidTicket_whenCreateToken_thenCreateTicket() throws Exception {
-        // given
-        given(ticketService.createTicket(any())).willReturn(Optional.ofNullable(ticketResponse));
+    public void givenIsValidTicket_whenReserveTicket_thenReserveTicket() throws Exception {
 
-        // when
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
-                .post("/api/v1/tickets")
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsBytes(ticketRequest));
-
-        // then
-        mockMvc.perform(mockRequest)
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(ticket.getId()))
-                .andExpect(jsonPath("$.meetupId").value(ticket.getMeetup().getId()))
-                .andExpect(jsonPath("$.accountId").value(ticket.getAccountId()))
-                .andExpect(jsonPath("$.count").value(ticket.getCount()))
-                .andExpect(jsonPath("$.reserveDate").isNotEmpty())
-                .andExpect(jsonPath("$.currency").value(ticket.getCurrency().toString()))
-                .andExpect(jsonPath("$.price").value(ticket.getPrice()));
     }
 }
 

@@ -1,11 +1,13 @@
 package com.microservicesdemo.ticketservice.unit.service;
 
 import com.microservicesdemo.ticketservice.converter.TicketConverter;
+import com.microservicesdemo.ticketservice.dto.MeetupResponse;
 import com.microservicesdemo.ticketservice.dto.TicketRequest;
 import com.microservicesdemo.ticketservice.dto.TicketResponse;
 import com.microservicesdemo.ticketservice.model.Meetup;
 import com.microservicesdemo.ticketservice.model.Ticket;
 import com.microservicesdemo.ticketservice.repository.TicketRepository;
+import com.microservicesdemo.ticketservice.service.MeetupService;
 import com.microservicesdemo.ticketservice.service.TicketService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +15,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.Answer;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -38,19 +39,35 @@ class TicketServiceTest {
     @InjectMocks
     TicketService ticketService;
 
-    Ticket ticket;
+    @Mock
+    MeetupService meetupService;
 
+    Ticket ticket;
     TicketRequest ticketRequest;
     TicketResponse ticketResponse;
 
+
+    Meetup meetup;
+
+    MeetupResponse meetupResponse;
+
     @BeforeEach
     void setUp() {
-        Meetup meetup = Meetup.builder()
+        meetup = Meetup.builder()
                 .id(UUID.randomUUID().toString())
                 .eventDate(LocalDateTime.from(LocalDateTime.now().plusDays(10)))
                 .name("Encryption Security Session")
                 .price(BigDecimal.TEN)
                 .url("http://www.zoom.us/A90A2890N")
+                .build();
+
+        meetupResponse = MeetupResponse.builder()
+                .id(meetup.getId())
+                .eventDate(meetup.getEventDate())
+                .name(meetup.getName())
+                .price(meetup.getPrice())
+                .url(meetup.getUrl())
+                .currency(meetup.getCurrency())
                 .build();
 
         ticket = Ticket.builder()
@@ -76,11 +93,12 @@ class TicketServiceTest {
     }
 
     @Test
-    public void givenIsValidTicket_whenCreateToken_thenCreateTicket() {
+    public void givenIsValidTicket_whenCreateTicket_thenCreateTicket() {
         // given
         given(ticketRepository.save(any())).willReturn(ticket);
         given(ticketConverter.toTicket(ticketRequest)).willReturn(ticket);
         given(ticketConverter.fromTicket(ticket)).willReturn(ticketResponse);
+        given(meetupService.getMeetup(any())).willReturn(Optional.ofNullable(meetupResponse));
 
         // when
         Optional<TicketResponse> expectedTicket = ticketService.createTicket(ticketRequest);
@@ -91,5 +109,22 @@ class TicketServiceTest {
     }
 
 
+    @Test
+    public void givenTicketWithHaveCountMoreThan_whenCreateTicket_thenCreateTicket() {
+        // given
+        given(ticketRepository.save(any())).willReturn(ticket);
+        given(ticketConverter.toTicket(ticketRequest)).willReturn(ticket);
+        given(ticketConverter.fromTicket(ticket)).willReturn(ticketResponse);
+        given(meetupService.getMeetup(any())).willReturn(Optional.ofNullable(meetupResponse));
+
+        ticket.setCount(5);
+
+        // when
+        Optional<TicketResponse> expectedTicket = ticketService.createTicket(ticketRequest);
+
+        // then
+        verify(ticketRepository, times(1)).save(any());
+        assertTrue(expectedTicket.isPresent(), "Object must not be null");
+    }
 }
 

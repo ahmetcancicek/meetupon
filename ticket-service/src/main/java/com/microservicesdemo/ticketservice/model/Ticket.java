@@ -47,4 +47,9 @@ public class Ticket extends BaseEntity {
 
     @Column(nullable = false)
     private BigDecimal price;
+
+
+    public BigDecimal findTotalPrice() {
+        return this.getPrice().multiply(BigDecimal.valueOf(this.getCount()));
+    }
 }
