@@ -10,9 +10,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.microservicesdemo</groupId>
-    <artifactId>register-server</artifactId>
-    <name>register-server</name>
-    <description>Register Server</description>
+    <artifactId>registry-server</artifactId>
+    <name>registry-server</name>
+    <description>Registry Server</description>
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
@@ -56,7 +56,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <finalName>register-server</finalName>
+                    <finalName>registry-server</finalName>
                 </configuration>
             </plugin>
             <plugin>
