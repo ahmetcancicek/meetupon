@@ -7,6 +7,7 @@ services:
       MYSQL_HOST: mysql
       MYSQL_USER: root
       MYSQL_PASSWORD: $MYSQL_ROOT_PASSWORD
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: $EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
     restart: on-failure
     build:
       context: ticket-service
@@ -38,13 +39,13 @@ services:
       - "15672:15672"
 
 
-  register-server:
-    environment:
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+  registry-server:
     restart: on-failure
     build:
-      context: register-server
+      context: registry-server
       dockerfile: Dockerfile
+    links:
+      - ticket-service
     ports:
       - "8761:8761"
 
