@@ -13,7 +13,7 @@
     <modules>
         <module>ticket-service</module>
         <module>auth-service</module>
-        <module>register-server</module>
+        <module>registry-server</module>
     </modules>
 
 </project>
