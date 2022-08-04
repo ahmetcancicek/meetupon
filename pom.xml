@@ -12,6 +12,8 @@
 
     <modules>
         <module>ticket-service</module>
+        <module>auth-service</module>
+        <module>register-server</module>
     </modules>
 
 </project>

@@ -37,6 +37,18 @@ services:
       - "5672:5672"
       - "15672:15672"
 
+
+  register-server:
+    environment:
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+    restart: on-failure
+    build:
+      context: register-server
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+
+
 volumes:
   mysql_data:
     name: microservicesdemo_mysql_data
