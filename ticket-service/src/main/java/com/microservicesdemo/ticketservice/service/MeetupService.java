@@ -21,6 +21,11 @@ public class MeetupService {
 
     private final MeetupConverter meetupConverter;
 
+    /**
+     *
+     * @param meetupRequest
+     * @return
+     */
     public Optional<MeetupResponse> createMeetup(MeetupRequest meetupRequest) {
         log.info("Trying to create new meetup: [{}]:", meetupRequest.toString());
         Meetup meetup = meetupConverter.toMeetup(meetupRequest);
@@ -29,6 +34,11 @@ public class MeetupService {
         return Optional.ofNullable(meetupConverter.fromMeetup(meetup));
     }
 
+    /**
+     *
+     * @param meetupId
+     * @return
+     */
     public Optional<MeetupResponse> getMeetup(String meetupId) {
         return meetupRepository.findById(meetupId)
                 .map(meetup -> {

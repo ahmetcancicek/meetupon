@@ -1,6 +1,5 @@
 package com.microservicesdemo.ticketservice.controller;
 
-import com.microservicesdemo.ticketservice.dto.ApiResponse;
 import com.microservicesdemo.ticketservice.dto.MeetupRequest;
 import com.microservicesdemo.ticketservice.exception.MeetupCreateException;
 import com.microservicesdemo.ticketservice.service.MeetupService;
@@ -12,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/meetups")
@@ -21,7 +22,7 @@ public class MeetupController {
     private final MeetupService meetupService;
 
     @PostMapping
-    public ResponseEntity createMeetup(@RequestBody MeetupRequest meetupRequest) {
+    public ResponseEntity createMeetup(@Valid @RequestBody MeetupRequest meetupRequest) {
         return meetupService.createMeetup(meetupRequest).map(meetupResponse -> {
             log.info("Meetup created successfully [{}]", meetupResponse.toString());
             return ResponseEntity.ok(meetupResponse);
