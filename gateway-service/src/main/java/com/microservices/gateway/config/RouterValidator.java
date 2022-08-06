@@ -1,4 +1,4 @@
-package com.microservices.auth.gateway.config;
+package com.microservices.gateway.config;
 
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;

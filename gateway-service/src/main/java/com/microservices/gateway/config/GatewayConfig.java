@@ -1,4 +1,4 @@
-package com.microservices.auth.gateway.config;
+package com.microservices.gateway.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.route.RouteLocator;
