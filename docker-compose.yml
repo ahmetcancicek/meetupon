@@ -2,23 +2,106 @@ version: '3.1'
 
 services:
 
-  ticket-service:
+  auth-service:
+    container_name: microservicesdemo_auth-service
     environment:
-      MYSQL_HOST: mysql
-      MYSQL_USER: root
-      MYSQL_PASSWORD: $MYSQL_ROOT_PASSWORD
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: $EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+      EUREKA_SERVER_HOSTNAME: $EUREKA_SERVER_HOSTNAME
+      EUREKA_SERVER_PORT: $EUREKA_SERVER_PORT
+      CONFIG_SERVICE_URL: $CONFIG_SERVICE_URL
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     restart: on-failure
     build:
       context: ticket-service
       dockerfile: Dockerfile
     depends_on:
       - mysql
-      - rabbitmq
+      - config-server
+      - registry-server
+      - gateway-service
+    ports:
+      - "5000:5000"
+
+  config-server:
+    container_name: microservicesdemo_config-server
+    environment:
+      EUREKA_SERVER_HOSTNAME: $EUREKA_SERVER_HOSTNAME
+      EUREKA_SERVER_PORT: $EUREKA_SERVER_PORT
+      CONFIG_SERVICE_URL: $CONFIG_SERVICE_URL
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+    restart: always
+    build:
+      context: config-server
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+
+  gateway-service:
+    container_name: microservicesdemo_gateway-service
+    environment:
+      EUREKA_SERVER_HOSTNAME: $EUREKA_SERVER_HOSTNAME
+      EUREKA_SERVER_PORT: $EUREKA_SERVER_PORT
+      CONFIG_SERVICE_URL: $CONFIG_SERVICE_URL
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+    restart: on-failure
+    build:
+      context: gateway-service
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+
+  registry-server:
+    container_name: microservicesdemo_registry-server
+    restart: always
+    build:
+      context: registry-server
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+
+  ticket-service:
+    container_name: microservicesdemo_ticket-service
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: $MYSQL_ROOT_PASSWORD
+      EUREKA_SERVER_HOSTNAME: $EUREKA_SERVER_HOSTNAME
+      EUREKA_SERVER_PORT: $EUREKA_SERVER_PORT
+      CONFIG_SERVICE_URL: $CONFIG_SERVICE_URL
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+    restart: on-failure
+    build:
+      context: ticket-service
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+      - config-server
+      - registry-server
+      - gateway-service
     ports:
       - "8585:8585"
 
+  user-service:
+    container_name: microservicesdemo-user_service
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: $MYSQL_ROOT_PASSWORD
+      EUREKA_SERVER_HOSTNAME: $EUREKA_SERVER_HOSTNAME
+      EUREKA_SERVER_PORT: $EUREKA_SERVER_PORT
+      CONFIG_SERVICE_URL: $CONFIG_SERVICE_URL
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+    restart: on-failure
+    build:
+      context: user-service
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+      - config-server
+      - registry-server
+      - gateway-service
+
   mysql:
+    container_name: microservicesdemo_mysql
     image: mysql:8.0.27
     restart: always
     environment:
@@ -39,21 +122,9 @@ services:
       - "15672:15672"
 
 
-  registry-server:
-    restart: on-failure
-    build:
-      context: registry-server
-      dockerfile: Dockerfile
-    links:
-      - ticket-service
-    ports:
-      - "8761:8761"
-
-
 volumes:
   mysql_data:
     name: microservicesdemo_mysql_data
-
 
 networks:
   default:
