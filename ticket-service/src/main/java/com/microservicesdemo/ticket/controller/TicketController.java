@@ -1,8 +1,8 @@
-package com.microservicesdemo.ticketservice.controller;
+package com.microservicesdemo.ticket.controller;
 
-import com.microservicesdemo.ticketservice.dto.TicketRequest;
-import com.microservicesdemo.ticketservice.exception.TicketCreateException;
-import com.microservicesdemo.ticketservice.service.TicketService;
+import com.microservicesdemo.ticket.exception.TicketCreateException;
+import com.microservicesdemo.ticket.dto.TicketRequest;
+import com.microservicesdemo.ticket.service.TicketService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

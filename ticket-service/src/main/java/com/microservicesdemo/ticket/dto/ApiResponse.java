@@ -1,4 +1,4 @@
-package com.microservicesdemo.ticketservice.dto;
+package com.microservicesdemo.ticket.dto;
 
 import lombok.Getter;
 import lombok.Setter;

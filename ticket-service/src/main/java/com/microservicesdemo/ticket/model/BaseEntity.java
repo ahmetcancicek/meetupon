@@ -1,4 +1,4 @@
-package com.microservicesdemo.ticketservice.model;
+package com.microservicesdemo.ticket.model;
 
 import lombok.Getter;
 import lombok.Setter;

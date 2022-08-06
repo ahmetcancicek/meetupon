@@ -1,7 +1,7 @@
 package com.microservicesdemo.ticketservice.integration.repository;
 
-import com.microservicesdemo.ticketservice.model.Meetup;
-import com.microservicesdemo.ticketservice.repository.MeetupRepository;
+import com.microservicesdemo.ticket.model.Meetup;
+import com.microservicesdemo.ticket.repository.MeetupRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

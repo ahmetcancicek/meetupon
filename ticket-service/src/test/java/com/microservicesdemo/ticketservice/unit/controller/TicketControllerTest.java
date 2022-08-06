@@ -1,34 +1,27 @@
 package com.microservicesdemo.ticketservice.unit.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.microservicesdemo.ticketservice.controller.TicketController;
-import com.microservicesdemo.ticketservice.converter.TicketConverter;
-import com.microservicesdemo.ticketservice.dto.Currency;
-import com.microservicesdemo.ticketservice.dto.TicketRequest;
-import com.microservicesdemo.ticketservice.dto.TicketResponse;
-import com.microservicesdemo.ticketservice.model.Meetup;
-import com.microservicesdemo.ticketservice.model.Ticket;
-import com.microservicesdemo.ticketservice.service.TicketService;
+import com.microservicesdemo.ticket.controller.TicketController;
+import com.microservicesdemo.ticket.dto.Currency;
+import com.microservicesdemo.ticket.dto.TicketRequest;
+import com.microservicesdemo.ticket.dto.TicketResponse;
+import com.microservicesdemo.ticket.model.Meetup;
+import com.microservicesdemo.ticket.model.Ticket;
+import com.microservicesdemo.ticket.service.TicketService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(TicketController.class)
 @AutoConfigureMockMvc

@@ -1,6 +1,6 @@
-package com.microservicesdemo.ticketservice.repository;
+package com.microservicesdemo.ticket.repository;
 
-import com.microservicesdemo.ticketservice.model.Meetup;
+import com.microservicesdemo.ticket.model.Meetup;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,11 +1,11 @@
-package com.microservicesdemo.ticketservice.service;
+package com.microservicesdemo.ticket.service;
 
-import com.microservicesdemo.ticketservice.converter.TicketConverter;
-import com.microservicesdemo.ticketservice.dto.TicketRequest;
-import com.microservicesdemo.ticketservice.dto.TicketResponse;
-import com.microservicesdemo.ticketservice.exception.ResourceNotFoundException;
-import com.microservicesdemo.ticketservice.model.Ticket;
-import com.microservicesdemo.ticketservice.repository.TicketRepository;
+import com.microservicesdemo.ticket.converter.TicketConverter;
+import com.microservicesdemo.ticket.exception.ResourceNotFoundException;
+import com.microservicesdemo.ticket.model.Ticket;
+import com.microservicesdemo.ticket.repository.TicketRepository;
+import com.microservicesdemo.ticket.dto.TicketRequest;
+import com.microservicesdemo.ticket.dto.TicketResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

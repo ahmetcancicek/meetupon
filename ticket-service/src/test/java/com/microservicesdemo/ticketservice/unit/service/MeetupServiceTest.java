@@ -1,11 +1,11 @@
 package com.microservicesdemo.ticketservice.unit.service;
 
-import com.microservicesdemo.ticketservice.converter.MeetupConverter;
-import com.microservicesdemo.ticketservice.dto.MeetupRequest;
-import com.microservicesdemo.ticketservice.dto.MeetupResponse;
-import com.microservicesdemo.ticketservice.model.Meetup;
-import com.microservicesdemo.ticketservice.repository.MeetupRepository;
-import com.microservicesdemo.ticketservice.service.MeetupService;
+import com.microservicesdemo.ticket.converter.MeetupConverter;
+import com.microservicesdemo.ticket.dto.MeetupRequest;
+import com.microservicesdemo.ticket.dto.MeetupResponse;
+import com.microservicesdemo.ticket.model.Meetup;
+import com.microservicesdemo.ticket.repository.MeetupRepository;
+import com.microservicesdemo.ticket.service.MeetupService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

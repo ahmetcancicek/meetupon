@@ -1,8 +1,8 @@
-package com.microservicesdemo.ticketservice.converter;
+package com.microservicesdemo.ticket.converter;
 
-import com.microservicesdemo.ticketservice.dto.MeetupRequest;
-import com.microservicesdemo.ticketservice.dto.MeetupResponse;
-import com.microservicesdemo.ticketservice.model.Meetup;
+import com.microservicesdemo.ticket.model.Meetup;
+import com.microservicesdemo.ticket.dto.MeetupRequest;
+import com.microservicesdemo.ticket.dto.MeetupResponse;
 import org.springframework.stereotype.Component;
 
 @Component

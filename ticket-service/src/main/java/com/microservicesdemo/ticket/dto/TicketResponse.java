@@ -1,4 +1,4 @@
-package com.microservicesdemo.ticketservice.dto;
+package com.microservicesdemo.ticket.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;

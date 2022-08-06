@@ -1,11 +1,8 @@
-package com.microservicesdemo.ticketservice.dto;
+package com.microservicesdemo.ticket.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
-import javax.persistence.Enumerated;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -13,25 +10,15 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 @ToString
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
-public class MeetupRequest {
-
-    @NotNull
+public class MeetupResponse {
+    private String id;
     private String name;
-
-    @NotNull
     private Currency currency;
-
-    @NotNull
-    @Positive
     private BigDecimal price;
-
-    @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime eventDate;
-
-    @NotNull
     private String url;
 }

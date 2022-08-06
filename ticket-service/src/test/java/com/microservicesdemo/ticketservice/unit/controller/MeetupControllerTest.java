@@ -1,12 +1,12 @@
 package com.microservicesdemo.ticketservice.unit.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.microservicesdemo.ticketservice.controller.MeetupController;
-import com.microservicesdemo.ticketservice.dto.Currency;
-import com.microservicesdemo.ticketservice.dto.MeetupRequest;
-import com.microservicesdemo.ticketservice.dto.MeetupResponse;
-import com.microservicesdemo.ticketservice.model.Meetup;
-import com.microservicesdemo.ticketservice.service.MeetupService;
+import com.microservicesdemo.ticket.controller.MeetupController;
+import com.microservicesdemo.ticket.dto.Currency;
+import com.microservicesdemo.ticket.dto.MeetupRequest;
+import com.microservicesdemo.ticket.dto.MeetupResponse;
+import com.microservicesdemo.ticket.model.Meetup;
+import com.microservicesdemo.ticket.service.MeetupService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

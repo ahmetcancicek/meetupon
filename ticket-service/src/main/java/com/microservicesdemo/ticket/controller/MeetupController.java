@@ -1,8 +1,8 @@
-package com.microservicesdemo.ticketservice.controller;
+package com.microservicesdemo.ticket.controller;
 
-import com.microservicesdemo.ticketservice.dto.MeetupRequest;
-import com.microservicesdemo.ticketservice.exception.MeetupCreateException;
-import com.microservicesdemo.ticketservice.service.MeetupService;
+import com.microservicesdemo.ticket.exception.MeetupCreateException;
+import com.microservicesdemo.ticket.dto.MeetupRequest;
+import com.microservicesdemo.ticket.service.MeetupService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

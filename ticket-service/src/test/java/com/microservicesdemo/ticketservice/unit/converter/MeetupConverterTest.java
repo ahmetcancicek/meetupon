@@ -1,17 +1,16 @@
 package com.microservicesdemo.ticketservice.unit.converter;
 
-import com.microservicesdemo.ticketservice.converter.MeetupConverter;
-import com.microservicesdemo.ticketservice.dto.Currency;
-import com.microservicesdemo.ticketservice.dto.MeetupRequest;
-import com.microservicesdemo.ticketservice.dto.MeetupResponse;
-import com.microservicesdemo.ticketservice.model.Meetup;
+import com.microservicesdemo.ticket.converter.MeetupConverter;
+import com.microservicesdemo.ticket.dto.Currency;
+import com.microservicesdemo.ticket.dto.MeetupRequest;
+import com.microservicesdemo.ticket.dto.MeetupResponse;
+import com.microservicesdemo.ticket.model.Meetup;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 

@@ -1,4 +1,4 @@
-package com.microservicesdemo.ticketservice.exception;
+package com.microservicesdemo.ticket.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

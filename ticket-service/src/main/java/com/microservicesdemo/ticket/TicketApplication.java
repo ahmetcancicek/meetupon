@@ -1,4 +1,4 @@
-package com.microservicesdemo.ticketservice;
+package com.microservicesdemo.ticket;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

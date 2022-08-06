@@ -1,7 +1,6 @@
-package com.microservicesdemo.ticketservice.model;
+package com.microservicesdemo.ticket.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.microservicesdemo.ticketservice.dto.Currency;
+import com.microservicesdemo.ticket.dto.Currency;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
