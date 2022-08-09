@@ -4,4 +4,4 @@ ADD ./target/gateway-service.jar /app/
 
 CMD ["java","-Xmx200m","-jar","/app/gateway-service.jar"]
 
-EXPOSE 8585
+EXPOSE 8080
