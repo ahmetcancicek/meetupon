@@ -16,6 +16,21 @@ spring:
     username: ${MYSQL_USER:root}
     password: ${MYSQL_PASSWORD:password}
     initialization-mode: always
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${APPLICATION_AUTHORIZATION_URL:http://localhost:8080}/auth/realms/${APPLICATION_AUTHORIZATION_REALM:microservicesdemo-app}/protocol/openid-connect/certs
+
+#==============================
+# KEYCLOAK ADMIN
+#==============================
+keycloak:
+  realm: ${APPLICATION_AUTHORIZATION_REALM:microservicesdemo-app}
+  resource: user-service
+  auth-server-url: ${APPLICATION_AUTHORIZATION_URL:http://localhost:8080}/auth
+  credentials:
+    secret: tzStYujeRnqoReZPJDMDjPMPFXZ6ypwf
 
 #==============================
 # CONFIGURATION
