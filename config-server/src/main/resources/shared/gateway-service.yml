@@ -9,12 +9,42 @@ spring:
       discovery:
         locator:
           enabled: true
+      default-filters:
+        - TokenRelay
+      routes:
+        - id: ticket-route
+          uri: ${TICKET_SERVICE_URL:http://localhost:5003}
+          predicates:
+            - Path=/api/v1/tickets/**,/api/v1/meetups/**
+        - id: user-route
+          uri: ${USER_SERVICE_URL:http://localhost:5001}
+          predicates:
+            - Path=/api/v1/users/**
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/auth/realms/microservicesdemo-app
+        registration:
+          gateway-service-client:
+            provider: keycloak
+            client-id: gateway-service
+            client-secret: z6CbziQZdnPgHftVPkGy4Nlr0X3moQ2c
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
 
 #==============================
 # CONFIGURATION
 #==============================
 server:
-  port: 8080
+  port: 9090
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 #==============================
 # EUREKA
@@ -30,3 +60,4 @@ eureka:
       defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka/
   server:
     wait-time-in-ms-when-sync-empty: 3000
+
