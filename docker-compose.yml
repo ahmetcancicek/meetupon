@@ -13,13 +13,14 @@ services:
     build:
       context: ticket-service
       dockerfile: Dockerfile
-    depends_on:
-      - mysql
-      - config-server
-      - registry-server
-      - gateway-service
     ports:
       - "5000:5000"
+    depends_on:
+      - mysql
+      - registry-server
+      - config-server
+      - keycloak
+      - gateway-service
 
   config-server:
     container_name: microservicesdemo_config-server
@@ -28,6 +29,12 @@ services:
       EUREKA_SERVER_PORT: $EUREKA_SERVER_PORT
       CONFIG_SERVICE_URL: $CONFIG_SERVICE_URL
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+      APPLICATION_AUTHORIZATION_REALM: $APPLICATION_AUTHORIZATION_REALM
+      APPLICATION_AUTHORIZATION_URL: $APPLICATION_AUTHORIZATION_URL
+      TICKET_SERVICE_URL: $TICKET_SERVICE_URL
+      USER_SERVICE_URL: $USER_SERVICE_URL
+      APPLICATION_AUTHORIZATION_GATEWAY_CLIENT_ID: $APPLICATION_AUTHORIZATION_GATEWAY_CLIENT_ID
+      APPLICATION_AUTHORIZATION_GATEWAY_CLIENT_SECRET: $APPLICATION_AUTHORIZATION_GATEWAY_CLIENT_SECRET
     restart: always
     build:
       context: config-server
@@ -47,7 +54,11 @@ services:
       context: gateway-service
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "9090:9090"
+    depends_on:
+      - registry-server
+      - config-server
+      - keycloak
 
   registry-server:
     container_name: microservicesdemo_registry-server
@@ -72,13 +83,15 @@ services:
     build:
       context: ticket-service
       dockerfile: Dockerfile
-    depends_on:
-      - mysql
-      - config-server
-      - registry-server
-      - gateway-service
     ports:
       - "8585:8585"
+    depends_on:
+      - mysql
+      - registry-server
+      - config-server
+      - keycloak
+      - gateway-service
+
 
   user-service:
     container_name: microservicesdemo-user_service
@@ -94,10 +107,13 @@ services:
     build:
       context: user-service
       dockerfile: Dockerfile
+    ports:
+      - "8590:8590"
     depends_on:
       - mysql
-      - config-server
       - registry-server
+      - config-server
+      - keycloak
       - gateway-service
 
   mysql:

@@ -4,4 +4,4 @@ ADD ./target/user-service.jar /app/
 
 CMD ["java","-Xmx200m","-jar","/app/user-service.jar"]
 
-EXPOSE 8585
+EXPOSE 8590
