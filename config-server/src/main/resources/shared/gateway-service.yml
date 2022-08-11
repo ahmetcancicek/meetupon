@@ -13,26 +13,18 @@ spring:
         - TokenRelay
       routes:
         - id: ticket-route
-          uri: ${TICKET_SERVICE_URL:http://localhost:5003}
+          uri: ${TICKET_SERVICE_URL:http://localhost:8585}
           predicates:
             - Path=/api/v1/tickets/**,/api/v1/meetups/**
         - id: user-route
-          uri: ${USER_SERVICE_URL:http://localhost:5001}
+          uri: ${USER_SERVICE_URL:http://localhost:8590}
           predicates:
             - Path=/api/v1/users/**
   security:
     oauth2:
-      client:
-        provider:
-          keycloak:
-            issuer-uri: ${APPLICATION_AUTHORIZATION_URL:http://localhost:8080}/auth/realms/${APPLICATION_AUTHORIZATION_REALM:microservicesdemo-app}
-        registration:
-          gateway-service-client:
-            provider: keycloak
-            client-id: ${APPLICATION_AUTHORIZATION_GATEWAY_CLIENT_ID:gateway-service}
-            client-secret: ${APPLICATION_AUTHORIZATION_GATEWAY_CLIENT_SECRET:z6CbziQZdnPgHftVPkGy4Nlr0X3moQ2c}
-            authorization-grant-type: authorization_code
-            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+      resourceserver:
+        jwt:
+          issuer-uri: ${APPLICATION_AUTHORIZATION_URL:http://localhost:8080}/auth/realms/${APPLICATION_AUTHORIZATION_REALM:microservicesdemo-app}
 
 #==============================
 # CONFIGURATION
