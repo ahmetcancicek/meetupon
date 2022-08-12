@@ -1,9 +1,10 @@
 package com.microservicesdemo.user.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.microservicesdemo.user.dto.UserRequest;
-import com.microservicesdemo.user.dto.UserResponse;
-import com.microservicesdemo.user.service.KeycloakService;
+import com.microservicesdemo.auth.controller.AuthController;
+import com.microservicesdemo.auth.dto.RegistrationRequest;
+import com.microservicesdemo.auth.dto.RegistrationResponse;
+import com.microservicesdemo.auth.service.KeycloakService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.UUID;
 
 
-@WebMvcTest(UserController.class)
+@WebMvcTest(AuthController.class)
 @AutoConfigureMockMvc
-class UserControllerTest {
+class AuthControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -32,33 +33,31 @@ class UserControllerTest {
     @MockBean
     private JwtDecoder jwtDecoder;
 
-    private UserRequest userRequest;
-    private UserResponse userResponse;
+    private RegistrationRequest userRequest;
+    private RegistrationResponse registrationResponse;
 
     @BeforeEach
     void setUp() {
-        userResponse = UserResponse.builder()
+        registrationResponse = RegistrationResponse.builder()
                 .id(UUID.randomUUID().toString())
                 .email("billhouse@mail.com")
                 .username("billhouse")
                 .firstName("Bill")
                 .lastName("House")
-                .enabled(true)
                 .build();
 
-        userRequest = UserRequest.builder()
+        userRequest = RegistrationRequest.builder()
                 .email("billhouse@mail.com")
                 .username("billhouse")
                 .firstName("Bill")
                 .lastName("House")
-                .enabled(true)
                 .registerAsAdmin(false)
                 .build();
     }
 
 
     @Test
-    void whenSaveUser_thenCreateAndReturnUser() throws Exception {
+    void whenRegisterUser_thenCreateAndReturnUser() throws Exception {
 
     }
 
