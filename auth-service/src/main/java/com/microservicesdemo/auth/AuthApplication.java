@@ -1,4 +1,4 @@
-package com.microservices.auth;
+package com.microservicesdemo.auth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

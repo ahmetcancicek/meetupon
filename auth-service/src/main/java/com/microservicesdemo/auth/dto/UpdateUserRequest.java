@@ -1,4 +1,4 @@
-package com.microservicesdemo.user.dto;
+package com.microservicesdemo.auth.dto;
 
 import lombok.*;
 
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @ToString
 @EqualsAndHashCode
-public class UserUpdateRequest {
+public class UpdateUserRequest {
     @Email
     @NotNull
     @NotBlank

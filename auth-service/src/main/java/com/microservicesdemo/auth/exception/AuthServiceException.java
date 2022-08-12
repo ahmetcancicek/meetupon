@@ -1,11 +1,11 @@
-package com.microservicesdemo.user.exception;
+package com.microservicesdemo.auth.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
-public class UserServiceException extends RuntimeException {
-    public UserServiceException(String message) {
+public class AuthServiceException extends RuntimeException {
+    public AuthServiceException(String message) {
         super(message);
     }
 }
