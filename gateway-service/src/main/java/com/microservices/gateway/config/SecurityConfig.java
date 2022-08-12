@@ -13,9 +13,13 @@ public class SecurityConfig {
 
     @Bean
     public SecurityWebFilterChain filterChain(ServerHttpSecurity http) {
-        http.authorizeExchange(exchange -> exchange.anyExchange().authenticated())
-                .oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt);
-
+        // @formatter:off
+        http
+                .authorizeExchange((authorize) -> authorize
+                        .pathMatchers("/api/v1/auth/**").permitAll()
+                        .anyExchange().authenticated()
+                ).oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt);
+        // @formatter:on
         http.csrf().disable();
 
         return http.build();
