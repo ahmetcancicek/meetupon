@@ -31,7 +31,7 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
         http.cors()
                 .and()
                 .authorizeRequests()
-                .anyRequest().authenticated() // OR .access("authenticated AND hasRole('product_read')")
+                .anyRequest().authenticated()
                 .and()
                 .oauth2ResourceServer()
                 .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()));
