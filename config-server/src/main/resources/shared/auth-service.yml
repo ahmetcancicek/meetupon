@@ -4,12 +4,27 @@
 spring:
   application:
     name: auth-service
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${APPLICATION_AUTHORIZATION_URL:http://localhost:8080}/auth/realms/${APPLICATION_AUTHORIZATION_REALM:microservicesdemo-app}/protocol/openid-connect/certs
+
+#==============================
+# KEYCLOAK ADMIN
+#==============================
+keycloak:
+  realm: ${APPLICATION_AUTHORIZATION_REALM:microservicesdemo-app}
+  resource: auth-service
+  auth-server-url: ${APPLICATION_AUTHORIZATION_URL:http://localhost:8080}/auth
+  credentials:
+    secret: tzStYujeRnqoReZPJDMDjPMPFXZ6ypwf
 
 #==============================
 # CONFIGURATION
 #==============================
 server:
-  port: 5000
+  port: 8590
 
 #==============================
 # EUREKA
