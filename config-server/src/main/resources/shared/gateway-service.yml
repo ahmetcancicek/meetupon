@@ -16,10 +16,10 @@ spring:
           uri: ${TICKET_SERVICE_URL:http://localhost:8585}
           predicates:
             - Path=/api/v1/tickets/**,/api/v1/meetups/**
-        - id: user-route
-          uri: ${USER_SERVICE_URL:http://localhost:8590}
+        - id: auth-route
+          uri: ${AUTH_SERVICE_URL:http://localhost:8590}
           predicates:
-            - Path=/api/v1/users/**
+            - Path=/api/v1/auth/**
   security:
     oauth2:
       resourceserver:
