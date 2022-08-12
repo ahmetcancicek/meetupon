@@ -1,4 +1,4 @@
-package com.microservicesdemo.user.dto;
+package com.microservicesdemo.auth.dto;
 
 import lombok.*;
 
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @ToString
 @EqualsAndHashCode
-public class UserRequest {
+public class RegistrationRequest {
     @Email
     @NotNull
     @NotBlank
@@ -22,7 +22,5 @@ public class UserRequest {
     private String password;
     private String firstName;
     private String lastName;
-    private RoleName roleName;
-    private Boolean enabled;
     private Boolean registerAsAdmin;
 }
