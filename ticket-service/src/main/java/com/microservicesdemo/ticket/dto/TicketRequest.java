@@ -13,11 +13,6 @@ import javax.validation.constraints.Positive;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class TicketRequest {
-
-    @NotNull
-    @Positive
-    private String accountId;
-
     @NotNull
     @Positive
     private String meetupId;

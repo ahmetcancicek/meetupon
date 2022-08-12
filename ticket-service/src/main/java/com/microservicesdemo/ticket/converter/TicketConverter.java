@@ -12,7 +12,6 @@ public class TicketConverter {
     public Ticket toTicket(TicketRequest ticketRequest) {
         return Ticket.builder()
                 .meetup(Meetup.builder().id(ticketRequest.getMeetupId()).build())
-                .accountId(ticketRequest.getAccountId())
                 .count(ticketRequest.getCount())
                 .build();
     }
