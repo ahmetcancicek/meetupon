@@ -43,4 +43,7 @@ public class Meetup extends BaseEntity {
 
     @Column(nullable = false, name = "url")
     private String url;
+
+    @Column(name = "user_id")
+    private String userId;
 }
