@@ -80,7 +80,6 @@ class TicketServiceTest {
 
         ticketRequest = TicketRequest.builder()
                 .count(ticket.getCount())
-                .accountId(ticket.getAccountId())
                 .meetupId(meetup.getId())
                 .build();
 

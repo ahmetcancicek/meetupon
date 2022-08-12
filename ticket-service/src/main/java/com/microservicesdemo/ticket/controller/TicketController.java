@@ -6,6 +6,7 @@ import com.microservicesdemo.ticket.service.TicketService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ public class TicketController {
     private final TicketService ticketService;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity reserveTicket(@Valid @RequestBody TicketRequest ticketRequest) {
         return ticketService.reserve(ticketRequest).map(ticketResponse -> {
             log.info("Ticket created successfully [{}]", ticketResponse.toString());
