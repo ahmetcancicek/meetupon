@@ -3,24 +3,28 @@ version: '3.1'
 services:
 
   auth-service:
-    container_name: microservicesdemo_auth-service
+    container_name: microservicesdemo-auth_service
     environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: $MYSQL_ROOT_PASSWORD
       EUREKA_SERVER_HOSTNAME: $EUREKA_SERVER_HOSTNAME
       EUREKA_SERVER_PORT: $EUREKA_SERVER_PORT
       CONFIG_SERVICE_URL: $CONFIG_SERVICE_URL
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     restart: on-failure
     build:
-      context: ticket-service
+      context: auth-service
       dockerfile: Dockerfile
     ports:
-      - "5000:5000"
+      - "8590:8590"
     depends_on:
       - mysql
       - registry-server
       - config-server
       - keycloak
       - gateway-service
+
 
   config-server:
     container_name: microservicesdemo_config-server
@@ -85,30 +89,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8585:8585"
-    depends_on:
-      - mysql
-      - registry-server
-      - config-server
-      - keycloak
-      - gateway-service
-
-
-  user-service:
-    container_name: microservicesdemo-user_service
-    environment:
-      MYSQL_HOST: mysql
-      MYSQL_USER: root
-      MYSQL_PASSWORD: $MYSQL_ROOT_PASSWORD
-      EUREKA_SERVER_HOSTNAME: $EUREKA_SERVER_HOSTNAME
-      EUREKA_SERVER_PORT: $EUREKA_SERVER_PORT
-      CONFIG_SERVICE_URL: $CONFIG_SERVICE_URL
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    restart: on-failure
-    build:
-      context: user-service
-      dockerfile: Dockerfile
-    ports:
-      - "8590:8590"
     depends_on:
       - mysql
       - registry-server
