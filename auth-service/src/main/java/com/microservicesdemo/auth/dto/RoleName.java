@@ -1,4 +1,4 @@
-package com.microservicesdemo.user.dto;
+package com.microservicesdemo.auth.dto;
 
 public enum RoleName {
     ROLE_USER("USER"), ROLE_ADMIN("ADMIN");
