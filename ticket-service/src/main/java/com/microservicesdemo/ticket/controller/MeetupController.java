@@ -1,5 +1,6 @@
 package com.microservicesdemo.ticket.controller;
 
+import com.microservicesdemo.ticket.annotation.CurrentUser;
 import com.microservicesdemo.ticket.exception.MeetupCreateException;
 import com.microservicesdemo.ticket.dto.MeetupRequest;
 import com.microservicesdemo.ticket.service.MeetupService;
@@ -10,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Slf4j
 @RestController
@@ -21,8 +23,8 @@ public class MeetupController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('ROLE_USER')")
-    public ResponseEntity createMeetup(@Valid @RequestBody MeetupRequest meetupRequest) {
-        return meetupService.createMeetup(meetupRequest).map(meetupResponse -> {
+    public ResponseEntity createMeetup(Principal principal, @Valid @RequestBody MeetupRequest meetupRequest) {
+        return meetupService.createMeetup(principal.getName(), meetupRequest).map(meetupResponse -> {
             log.info("Meetup created successfully [{}]", meetupResponse.toString());
             return ResponseEntity.ok(meetupResponse);
         }).orElseThrow(() -> new MeetupCreateException(meetupRequest.toString(), ""));

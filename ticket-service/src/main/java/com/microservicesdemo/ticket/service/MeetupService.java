@@ -34,6 +34,16 @@ public class MeetupService {
         return Optional.ofNullable(meetupConverter.fromMeetup(meetup));
     }
 
+    public Optional<MeetupResponse> createMeetup(String userId, MeetupRequest meetupRequest) {
+        log.info("Trying to create new meetup: [{}]:", meetupRequest.toString());
+        Meetup meetup = meetupConverter.toMeetup(meetupRequest);
+        meetup.setUserId(userId);
+        meetupRepository.save(meetup);
+        log.info("Created new meetup and saved to db: [{}]", meetup.toString());
+        return Optional.ofNullable(meetupConverter.fromMeetup(meetup));
+    }
+
+
     /**
      *
      * @param meetupId
