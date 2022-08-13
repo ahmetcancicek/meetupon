@@ -3,7 +3,7 @@ version: '3.1'
 services:
 
   auth-service:
-    container_name: microservicesdemo-auth_service
+    container_name: meetupon-auth_service
     environment:
       MYSQL_HOST: mysql
       MYSQL_USER: root
@@ -27,7 +27,7 @@ services:
 
 
   config-server:
-    container_name: microservicesdemo_config-server
+    container_name: meetupon_config-server
     environment:
       EUREKA_SERVER_HOSTNAME: $EUREKA_SERVER_HOSTNAME
       EUREKA_SERVER_PORT: $EUREKA_SERVER_PORT
@@ -47,7 +47,7 @@ services:
       - "8888:8888"
 
   gateway-service:
-    container_name: microservicesdemo_gateway-service
+    container_name: meetupon_gateway-service
     environment:
       EUREKA_SERVER_HOSTNAME: $EUREKA_SERVER_HOSTNAME
       EUREKA_SERVER_PORT: $EUREKA_SERVER_PORT
@@ -65,7 +65,7 @@ services:
       - keycloak
 
   registry-server:
-    container_name: microservicesdemo_registry-server
+    container_name: meetupon_registry-server
     restart: always
     build:
       context: registry-server
@@ -74,7 +74,7 @@ services:
       - "8761:8761"
 
   ticket-service:
-    container_name: microservicesdemo_ticket-service
+    container_name: meetupon_ticket-service
     environment:
       MYSQL_HOST: mysql
       MYSQL_USER: root
@@ -97,7 +97,7 @@ services:
       - gateway-service
 
   mysql:
-    container_name: microservicesdemo_mysql
+    container_name: meetupon_mysql
     image: mysql:8.0.27
     restart: always
     environment:
@@ -108,6 +108,7 @@ services:
       - "3306:3306"
 
   rabbitmq:
+    container_name: meetupon_rabbitmq
     image: rabbitmq:management-alpine
     restart: always
     environment:
@@ -118,7 +119,7 @@ services:
       - "15672:15672"
 
   keycloak:
-    container_name: microservicesdemo_keycloak
+    container_name: meetupon_keycloak
     image: jboss/keycloak:16.0.0
     environment:
       KEYCLOAK_USER: admin
@@ -128,8 +129,8 @@ services:
 
 volumes:
   mysql_data:
-    name: microservicesdemo_mysql_data
+    name: meetupon_mysql_data
 
 networks:
   default:
-    name: microservicesdemo_network
+    name: meetupon_network

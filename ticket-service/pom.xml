@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.microservicesdemo</groupId>
+    <groupId>com.meetupon</groupId>
     <artifactId>ticket-service</artifactId>
     <name>ticket-service</name>
     <description>Ticket Service</description>
