@@ -1,12 +1,11 @@
-package com.meetupon.user.controller;
+package com.meetupon.auth.unit.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meetupon.auth.controller.AuthController;
 import com.meetupon.auth.dto.RegistrationRequest;
 import com.meetupon.auth.dto.RegistrationResponse;
-import com.meetupon.auth.service.KeycloakService;
+import com.meetupon.auth.security.KeycloakProvider;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -28,7 +27,7 @@ class AuthControllerTest {
     private ObjectMapper mapper;
 
     @MockBean
-    private KeycloakService keycloakService;
+    private KeycloakProvider keycloakProvider;
 
     @MockBean
     private JwtDecoder jwtDecoder;
@@ -53,21 +52,5 @@ class AuthControllerTest {
                 .lastName("House")
                 .registerAsAdmin(false)
                 .build();
-    }
-
-
-    @Test
-    void whenRegisterUser_thenCreateAndReturnUser() throws Exception {
-
-    }
-
-    @Test
-    void whenGetUser_thenReturnUser() {
-
-    }
-
-    @Test
-    void whenUpdateUser_thenUpdateAndReturnUser() {
-
     }
 }
