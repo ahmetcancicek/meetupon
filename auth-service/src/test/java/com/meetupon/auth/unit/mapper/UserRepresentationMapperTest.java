@@ -1,4 +1,4 @@
-package com.meetupon.user.mapper;
+package com.meetupon.auth.unit.mapper;
 
 import com.meetupon.auth.dto.RegistrationRequest;
 import com.meetupon.auth.dto.RegistrationResponse;
@@ -67,7 +67,6 @@ class UserRepresentationMapperTest {
                 .email("billhouse@mail.com")
                 .firstName("Bill")
                 .lastName("House")
-                .enabled(true)
                 .registerAsAdmin(false)
                 .build();
 
@@ -76,6 +75,5 @@ class UserRepresentationMapperTest {
         assertEquals(updateUserRequest.getEmail(), userRepresentation.getEmail());
         assertEquals(updateUserRequest.getFirstName(), userRepresentation.getFirstName());
         assertEquals(updateUserRequest.getLastName(), userRepresentation.getLastName());
-        assertEquals(updateUserRequest.getEnabled(), userRepresentation.isEnabled());
     }
 }
