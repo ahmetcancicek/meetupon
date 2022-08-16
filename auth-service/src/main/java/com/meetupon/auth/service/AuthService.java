@@ -4,9 +4,9 @@ import com.meetupon.auth.dto.LoginRequest;
 import com.meetupon.auth.dto.LoginResponse;
 import com.meetupon.auth.dto.RegistrationRequest;
 import com.meetupon.auth.dto.RegistrationResponse;
-import com.meetupon.auth.exception.AuthServiceException;
-import com.microservicesdemo.auth.dto.*;
+import com.meetupon.auth.exception.AuthServiceBusinessException;
 import com.meetupon.auth.mapper.UserRepresentationMapper;
+import com.meetupon.auth.security.KeycloakProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,49 +18,68 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuthService {
 
-    private final KeycloakService keycloakService;
+    private final KeycloakProvider keycloakProvider;
 
+    /**
+     *
+     * @param registrationRequest
+     * @return
+     */
     public Optional<RegistrationResponse> registerUser(RegistrationRequest registrationRequest) {
-        // TODO: Check if email already exists
         String newRegistrationRequestEmail = registrationRequest.getEmail();
         if (isEmailAlreadyExists(newRegistrationRequestEmail)) {
             log.error("Email already exists: [{}]", newRegistrationRequestEmail);
-            throw new AuthServiceException("Email already exists");
+            throw new AuthServiceBusinessException("auth-service.user.existsEmail");
         }
 
-        // TODO: Check if username already exists
         String newRegistrationUsername = registrationRequest.getUsername();
         if (isUsernameAlreadyExists(newRegistrationUsername)) {
             log.error("Username already exists: [{}]", newRegistrationUsername);
-            throw new AuthServiceException("Username already exists");
+            throw new AuthServiceBusinessException("auth-service.user.existsUsername");
         }
 
-        return keycloakService.createUser(registrationRequest).map(userRepresentation -> {
+        return keycloakProvider.createUser(registrationRequest).map(userRepresentation -> {
             RegistrationResponse registrationResponse = UserRepresentationMapper.INSTANCE.fromUserRepresentation(userRepresentation);
             log.info("Created new user : [{}]", registrationResponse.toString());
             return Optional.of(registrationResponse);
-        }).orElseThrow(() -> new AuthServiceException("The user could not created"));
+        }).orElseThrow(() -> new AuthServiceBusinessException("The user could not created"));
+        // TODO: Do implementation of using i18n
     }
 
+    /**
+     *
+     * @param loginRequest
+     * @return
+     */
     public Optional<LoginResponse> authenticateUser(LoginRequest loginRequest) {
-        return keycloakService.generateToken(loginRequest.getUsername(), loginRequest.getPassword()).map(accessTokenResponse -> {
+        return keycloakProvider.authenticate(loginRequest).map(accessTokenResponse -> {
             log.info("Logged in User returned [API]: [{}]", loginRequest.getUsername());
             return Optional.ofNullable(LoginResponse.builder()
                     .accessToken(accessTokenResponse.getToken())
                     .refreshToken(accessTokenResponse.getRefreshToken())
                     .expiresIn(accessTokenResponse.getExpiresIn())
                     .refreshExpiresIn(accessTokenResponse.getRefreshExpiresIn())
+                    .tokenType(accessTokenResponse.getTokenType())
                     .build());
-        }).orElseThrow(() -> new AuthServiceException("Couldn't create refresh token for: [" + loginRequest.toString() + "]"));
+        }).orElseThrow(() -> new AuthServiceBusinessException("Couldn't create access and refresh token for: [{" + loginRequest.toString() + "]"));
+        // TODO: Do Implementation of using i18n
     }
 
-
+    /**
+     *
+     * @param email
+     * @return
+     */
     public Boolean isEmailAlreadyExists(String email) {
-        return false;
+        return keycloakProvider.existsByEmail(email);
     }
 
+    /**
+     *
+     * @param username
+     * @return
+     */
     public Boolean isUsernameAlreadyExists(String username) {
-        return false;
+        return keycloakProvider.existsByUsername(username);
     }
-
 }
