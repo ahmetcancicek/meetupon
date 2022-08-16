@@ -19,7 +19,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: ${APPLICATION_AUTHORIZATION_URL:http://localhost:8080}/auth/realms/${APPLICATION_AUTHORIZATION_REALM:microservicesdemo-app}/protocol/openid-connect/certs
+          jwk-set-uri: ${APPLICATION_AUTHORIZATION_URL:http://localhost:8080}/auth/realms/${APPLICATION_AUTHORIZATION_REALM:meetupon}/protocol/openid-connect/certs
 
 #==============================
 # CONFIGURATION
