@@ -33,12 +33,10 @@ services:
       EUREKA_SERVER_PORT: $EUREKA_SERVER_PORT
       CONFIG_SERVICE_URL: $CONFIG_SERVICE_URL
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+      TICKET_SERVICE_URL: $TICKET_SERVICE_URL
+      AUTH_SERVICE_URL: $AUTH_SERVICE_URL
       APPLICATION_AUTHORIZATION_REALM: $APPLICATION_AUTHORIZATION_REALM
       APPLICATION_AUTHORIZATION_URL: $APPLICATION_AUTHORIZATION_URL
-      TICKET_SERVICE_URL: $TICKET_SERVICE_URL
-      USER_SERVICE_URL: $USER_SERVICE_URL
-      APPLICATION_AUTHORIZATION_GATEWAY_CLIENT_ID: $APPLICATION_AUTHORIZATION_GATEWAY_CLIENT_ID
-      APPLICATION_AUTHORIZATION_GATEWAY_CLIENT_SECRET: $APPLICATION_AUTHORIZATION_GATEWAY_CLIENT_SECRET
     restart: always
     build:
       context: config-server
@@ -53,6 +51,8 @@ services:
       EUREKA_SERVER_PORT: $EUREKA_SERVER_PORT
       CONFIG_SERVICE_URL: $CONFIG_SERVICE_URL
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+      APPLICATION_AUTHORIZATION_REALM: $APPLICATION_AUTHORIZATION_REALM
+      APPLICATION_AUTHORIZATION_URL: $APPLICATION_AUTHORIZATION_URL
     restart: on-failure
     build:
       context: gateway-service
@@ -66,7 +66,7 @@ services:
 
   registry-server:
     container_name: meetupon_registry-server
-    restart: always
+    restart: on-failure
     build:
       context: registry-server
       dockerfile: Dockerfile
@@ -75,6 +75,7 @@ services:
 
   ticket-service:
     container_name: meetupon_ticket-service
+    restart: on-failure
     environment:
       MYSQL_HOST: mysql
       MYSQL_USER: root
@@ -83,7 +84,8 @@ services:
       EUREKA_SERVER_PORT: $EUREKA_SERVER_PORT
       CONFIG_SERVICE_URL: $CONFIG_SERVICE_URL
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    restart: on-failure
+      APPLICATION_AUTHORIZATION_REALM: $APPLICATION_AUTHORIZATION_REALM
+      APPLICATION_AUTHORIZATION_URL: $APPLICATION_AUTHORIZATION_URL
     build:
       context: ticket-service
       dockerfile: Dockerfile
@@ -99,7 +101,7 @@ services:
   mysql:
     container_name: meetupon_mysql
     image: mysql:8.0.27
-    restart: always
+    restart: on-failure
     environment:
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
     volumes:
@@ -110,7 +112,7 @@ services:
   rabbitmq:
     container_name: meetupon_rabbitmq
     image: rabbitmq:management-alpine
-    restart: always
+    restart: on-failure
     environment:
       RABBITMQ_DEFAULT_USER: user
       RABBITMQ_DEFAULT_PASS: password
@@ -120,9 +122,10 @@ services:
 
   keycloak:
     container_name: meetupon_keycloak
-    image: jboss/keycloak:16.0.0
+    image: jboss/keycloak:16.1.1
+    restart: on-failure
     environment:
-      KEYCLOAK_USER: admin
+      KEYCLOAK_USER: user
       KEYCLOAK_PASSWORD: password
     ports:
       - "8080:8080"
