@@ -1,7 +1,7 @@
 package com.meetupon.auth.controller;
 
 import com.meetupon.auth.dto.RegistrationRequest;
-import com.meetupon.auth.exception.AuthServiceException;
+import com.meetupon.auth.exception.AuthServiceBusinessException;
 import com.meetupon.auth.dto.LoginRequest;
 import com.meetupon.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class AuthController {
         return authService.registerUser(registrationRequest).map(registrationResponse -> {
             log.info("User added successfully [{}]", registrationResponse.toString());
             return ResponseEntity.ok(registrationResponse);
-        }).orElseThrow(() -> new AuthServiceException("User could not created"));
+        }).orElseThrow(() -> new AuthServiceBusinessException("auth-service.user.notRegistered"));
     }
 
     @PostMapping("/login")
@@ -33,6 +33,6 @@ public class AuthController {
                 .map(loginResponse -> {
                     log.info("User authenticate successfully [{}]", loginResponse.toString());
                     return ResponseEntity.ok(loginResponse);
-                }).orElseThrow(() -> new AuthServiceException(""));
+                }).orElseThrow(() -> new AuthServiceBusinessException("auth-service.user.notFound"));
     }
 }
