@@ -11,8 +11,6 @@ import org.springframework.security.config.annotation.web.configurers.oauth2.ser
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.csrf().disable().authorizeRequests().antMatchers("/api/v1/auth/**").permitAll();
-
         http.csrf().disable().authorizeRequests(authorize ->
                         authorize.antMatchers("/api/v1/auth/**").permitAll()
                                 .anyRequest().authenticated())
