@@ -12,15 +12,17 @@ import javax.validation.constraints.NotNull;
 @ToString
 @EqualsAndHashCode
 public class UpdateUserRequest {
-    @Email
-    @NotNull
-    @NotBlank
+
+    @Email(message = "common.client.notValidEmail")
+    @NotBlank(message = "common.client.requiredField")
     private String email;
-    @NotNull
+
+    @NotNull(message = "common.client.requiredField")
     private String password;
+
     private String firstName;
+
     private String lastName;
-    private RoleName roleName;
-    private Boolean enabled;
+    
     private Boolean registerAsAdmin;
 }

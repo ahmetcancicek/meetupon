@@ -8,8 +8,14 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class LoginResponse {
-    protected String accessToken;
-    protected String refreshToken;
-    protected long expiresIn;
-    protected long refreshExpiresIn;
+
+    String accessToken;
+
+    String refreshToken;
+
+    long expiresIn;
+
+    long refreshExpiresIn;
+    
+    String tokenType;
 }

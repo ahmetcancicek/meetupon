@@ -12,9 +12,9 @@ import javax.validation.constraints.NotEmpty;
 @EqualsAndHashCode
 public class LoginRequest {
 
-    @NotBlank
+    @NotBlank(message = "common.client.requiredField")
     private String username;
 
-    @NotEmpty
+    @NotEmpty(message = "common.client.requiredField")
     private String password;
 }

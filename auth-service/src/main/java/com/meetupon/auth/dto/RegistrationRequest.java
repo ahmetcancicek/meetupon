@@ -12,15 +12,20 @@ import javax.validation.constraints.NotNull;
 @ToString
 @EqualsAndHashCode
 public class RegistrationRequest {
+
     @Email
-    @NotNull
-    @NotBlank
+    @NotBlank(message = "common.client.requiredField")
     private String email;
-    @NotBlank
+
+    @NotBlank(message = "common.client.requiredField")
     private String username;
-    @NotNull
+
+    @NotNull(message = "common.client.requiredField")
     private String password;
+
     private String firstName;
+
     private String lastName;
-    private Boolean registerAsAdmin;
+
+    private Boolean registerAsAdmin = false;
 }
