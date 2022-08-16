@@ -8,17 +8,17 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: ${APPLICATION_AUTHORIZATION_URL:http://localhost:8080}/auth/realms/${APPLICATION_AUTHORIZATION_REALM:microservicesdemo-app}/protocol/openid-connect/certs
+          jwk-set-uri: ${APPLICATION_AUTHORIZATION_URL:http://localhost:8080}/auth/realms/${APPLICATION_AUTHORIZATION_REALM:meetupon}/protocol/openid-connect/certs
 
 #==============================
 # KEYCLOAK ADMIN
 #==============================
 keycloak:
-  realm: ${APPLICATION_AUTHORIZATION_REALM:microservicesdemo-app}
+  realm: ${APPLICATION_AUTHORIZATION_REALM:meetupon}
   resource: auth-service
   auth-server-url: ${APPLICATION_AUTHORIZATION_URL:http://localhost:8080}/auth
   credentials:
-    secret: tzStYujeRnqoReZPJDMDjPMPFXZ6ypwf
+    secret: XEN26R27FLIUvCIpf5agPVfv4oazqQ6v
 
 #==============================
 # CONFIGURATION
