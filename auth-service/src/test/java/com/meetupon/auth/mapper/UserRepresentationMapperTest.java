@@ -1,9 +1,8 @@
-package com.meetupon.auth.unit.mapper;
+package com.meetupon.auth.mapper;
 
 import com.meetupon.auth.dto.RegistrationRequest;
 import com.meetupon.auth.dto.RegistrationResponse;
 import com.meetupon.auth.dto.UpdateUserRequest;
-import com.meetupon.auth.mapper.UserRepresentationMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
