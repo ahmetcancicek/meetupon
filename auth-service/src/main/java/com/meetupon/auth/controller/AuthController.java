@@ -1,12 +1,13 @@
 package com.meetupon.auth.controller;
 
+import com.meetupon.auth.common.rest.ApiResponse;
+import com.meetupon.auth.dto.LoginResponse;
 import com.meetupon.auth.dto.RegistrationRequest;
-import com.meetupon.auth.exception.AuthServiceBusinessException;
 import com.meetupon.auth.dto.LoginRequest;
+import com.meetupon.auth.dto.RegistrationResponse;
 import com.meetupon.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,24 +16,19 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthController extends BaseController {
 
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity registerUser(@Valid @RequestBody RegistrationRequest registrationRequest) {
-        return authService.registerUser(registrationRequest).map(registrationResponse -> {
-            log.info("User added successfully [{}]", registrationResponse.toString());
-            return ResponseEntity.ok(registrationResponse);
-        }).orElseThrow(() -> new AuthServiceBusinessException("auth-service.user.notRegistered"));
+    public ApiResponse<RegistrationResponse> registerUser(@Valid @RequestBody RegistrationRequest registrationRequest) {
+        RegistrationResponse registrationResponse = authService.registerUser(registrationRequest);
+        return respond(registrationResponse);
     }
 
     @PostMapping("/login")
-    public ResponseEntity authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        return authService.authenticateUser(loginRequest)
-                .map(loginResponse -> {
-                    log.info("User authenticate successfully [{}]", loginResponse.toString());
-                    return ResponseEntity.ok(loginResponse);
-                }).orElseThrow(() -> new AuthServiceBusinessException("auth-service.user.notFound"));
+    public ApiResponse<LoginResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        LoginResponse loginResponse = authService.authenticateUser(loginRequest);
+        return respond(loginResponse);
     }
 }
