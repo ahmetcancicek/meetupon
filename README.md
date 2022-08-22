@@ -5,10 +5,29 @@ provide services among people to have a connection.
 
 ## Contents
 
+- [`Installation`](#installation)
 - [`Development`](#development)
 - [`Roadmap`](#roadmap)
 - [`Contributing`](#contributing)
 - [`License`](#license)
+
+## Installation
+
+```bash
+cd registry-server
+mvn clean install -Dmaven.test.skip=true
+cd ..
+cd config-server
+mvn clean install -Dmaven.test.skip=true
+cd ..
+cd gateway-service
+mvn clean install -Dmaven.test.skip=true
+cd ..
+cd auth-service
+mvn clean install -Dmaven.test.skip=true
+cd ..
+docker-compose up -d --build
+```
 
 ## Development
 
@@ -41,7 +60,7 @@ This project is developing with java programming languages and java technologies
 - [X] Registry Server
 - [X] Config Server
 - [X] Gateway Service
-- [ ] Authentication Service
+- [X] Authentication Service
 - [ ] Ticket Service
 
 

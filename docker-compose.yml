@@ -24,7 +24,6 @@ services:
       - keycloak
       - gateway-service
 
-
   config-server:
     container_name: meetupon_config-server
     environment:
