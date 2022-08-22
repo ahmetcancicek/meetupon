@@ -5,9 +5,9 @@ spring:
   application:
     name: auth-service
   config:
-    import: optional:configserver:${CONFIG_SERVICE_URL:http://localhost:8888}
+    import: optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888}
   cloud:
     config:
-      uri: ${CONFIG_SERVICE_URL:http://localhost:8888}
-      password: ${CONFIG_SERVICE_PASSWORD:password}
+      uri: ${CONFIG_SERVER_URL:http://localhost:8888}
+      password: ${CONFIG_SERVER_PASSWORD:password}
       username: user
