@@ -34,8 +34,8 @@ public class JwtTokenProvider {
         this.keycloak = keycloak;
     }
 
-    public Optional<AccessTokenResponse> generateToken(String username, String password) {
-        return Optional.ofNullable(KeycloakBuilder.builder()
+    public AccessTokenResponse generateToken(String username, String password) {
+        return KeycloakBuilder.builder()
                 .serverUrl(serverUrl)
                 .realm(realm)
                 .grantType(OAuth2Constants.PASSWORD)
@@ -43,7 +43,7 @@ public class JwtTokenProvider {
                 .clientSecret(clientSecret)
                 .username(username)
                 .password(password)
-                .build().tokenManager().getAccessToken());
+                .build().tokenManager().getAccessToken();
     }
 
     public RealmResource getKeycloakRealm() {

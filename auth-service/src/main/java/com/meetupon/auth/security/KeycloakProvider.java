@@ -3,6 +3,7 @@ package com.meetupon.auth.security;
 import com.meetupon.auth.dto.*;
 import com.meetupon.auth.mapper.UserRepresentationMapper;
 import com.meetupon.auth.security.JwtTokenProvider;
+import com.meetupon.auth.vo.RoleName;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.CreatedResponseUtil;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Component;
 import javax.ws.rs.core.Response;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Optional;
 
 @Slf4j
 @Component
@@ -31,7 +31,7 @@ public class KeycloakProvider {
      * @param registrationRequest
      * @return A user object if successfully created
      */
-    public Optional<UserRepresentation> createUser(RegistrationRequest registrationRequest) {
+    public RegistrationResponse createUser(RegistrationRequest registrationRequest) {
         log.info("Trying to save new user to keycloak: [{}]", registrationRequest.toString());
         UserRepresentation userRepresentation = new UserRepresentation();
         userRepresentation.setEmail(registrationRequest.getEmail());
@@ -47,16 +47,25 @@ public class KeycloakProvider {
         String userId = CreatedResponseUtil.getCreatedId(response);
         userRepresentation = jwtTokenProvider.getUsersResource().get(userId).toRepresentation();
         log.info("Created new user and saved to keycloak: [{}]", userRepresentation.toString());
-        return Optional.ofNullable(userRepresentation);
+        // TODO: Add roles to user for ROLE_ADMIN or ROLE_USER
+        return UserRepresentationMapper.INSTANCE.fromUserRepresentation(userRepresentation);
     }
 
     /**
      * @param loginRequest
      * @return
      */
-    public Optional<AccessTokenResponse> authenticate(LoginRequest loginRequest) {
+    public LoginResponse authenticate(LoginRequest loginRequest) {
         log.info("Trying to authenticate user with keycloak: [{}]", loginRequest.getUsername().toString());
-        return jwtTokenProvider.generateToken(loginRequest.getUsername(), loginRequest.getPassword());
+        AccessTokenResponse accessTokenResponse = jwtTokenProvider.generateToken(loginRequest.getUsername(), loginRequest.getPassword());
+        // TODO:
+        return LoginResponse.builder()
+                .accessToken(accessTokenResponse.getToken())
+                .refreshToken(accessTokenResponse.getRefreshToken())
+                .expiresIn(accessTokenResponse.getExpiresIn())
+                .refreshExpiresIn(accessTokenResponse.getRefreshExpiresIn())
+                .tokenType(accessTokenResponse.getTokenType())
+                .build();
     }
 
     /**
@@ -78,7 +87,7 @@ public class KeycloakProvider {
      * @param updateUserRequest
      * @return
      */
-    public Optional<RegistrationResponse> updateUser(String userId, UpdateUserRequest updateUserRequest) {
+    public RegistrationResponse updateUser(String userId, UpdateUserRequest updateUserRequest) {
         // TODO: Check if the email already exists in another user
         log.info("Trying to update a user from keycloak: [{}]", updateUserRequest.toString());
         UserRepresentation userRepresentation = new UserRepresentation();
@@ -92,28 +101,29 @@ public class KeycloakProvider {
         jwtTokenProvider.getUsersResource().get(userId).update(userRepresentation);
         log.info("Updated user and saved to keycloak: [{}]", userRepresentation.toString());
 
-        return Optional.ofNullable(
-                UserRepresentationMapper.INSTANCE.fromUserRepresentation(userRepresentation));
+        return UserRepresentationMapper.INSTANCE.fromUserRepresentation(userRepresentation);
     }
 
     /**
      * @param id
      * @param roleName
      */
-    public void addToRoleToUser(String id, String roleName) {
+    public void addToRoleToUser(String id, RoleName roleName) {
         log.info("Trying to get the user with id: [{}]", id.toString());
         UserResource userResource = jwtTokenProvider.getUsersResource().get(id);
         // Get realm role "USER"
         RoleRepresentation userRealmRole = jwtTokenProvider.getKeycloakRealm().roles()
-                .get(roleName).toRepresentation();
+                .get(roleName.toString()).toRepresentation();
         // Assign realm role tester to user
         userResource.roles().realmLevel()
                 .add(Arrays.asList(userRealmRole));
+
         log.info("Added role to user: [{}]", userResource.toRepresentation());
     }
 
     /**
      * Checks if the user exists with given email
+     *
      * @param email
      * @return
      */
@@ -125,6 +135,7 @@ public class KeycloakProvider {
 
     /**
      * Checks if the user exists with given username
+     *
      * @param username
      * @return
      */
