@@ -120,19 +120,42 @@ services:
       - "5672:5672"
       - "15672:15672"
 
-  keycloak:
-    container_name: meetupon_keycloak
-    image: jboss/keycloak:16.1.1
-    restart: on-failure
+  postgres:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5431:5431
+
+  keycloak:
+    image: jboss/keycloak:latest
+    volumes:
+      - ./docs/keycloak:/opt/jboss/keycloak/imports
+    #    command:
+    #      - "-b 0.0.0.0 -Dkeycloak.import=/opt/jboss/keycloak/imports/realm-export.json"
+    environment:
+      KEYCLOAK_IMPORT: /opt/jboss/keycloak/imports/realm-export.json -Dkeycloak.profile.feature.upload_scripts=enabled
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: password
       KEYCLOAK_USER: user
       KEYCLOAK_PASSWORD: password
     ports:
-      - "8080:8080"
+      - 8080:8080
+    depends_on:
+      - postgres
 
 volumes:
   mysql_data:
     name: meetupon_mysql_data
+  postgres_data:
+    name: meetupon_postgres_data
 
 networks:
   default:
