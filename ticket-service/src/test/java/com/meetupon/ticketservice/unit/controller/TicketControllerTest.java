@@ -7,7 +7,7 @@ import com.meetupon.ticket.dto.TicketRequest;
 import com.meetupon.ticket.dto.TicketResponse;
 import com.meetupon.ticket.model.Meetup;
 import com.meetupon.ticket.model.Ticket;
-import com.meetupon.ticket.service.TicketService;
+import com.meetupon.ticket.service.TicketServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class TicketControllerTest {
     protected ObjectMapper mapper;
 
     @MockBean
-    protected TicketService ticketService;
+    protected TicketServiceImpl ticketService;
 
     private Ticket ticket;
     private TicketResponse ticketResponse;

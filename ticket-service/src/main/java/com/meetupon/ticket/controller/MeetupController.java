@@ -1,7 +1,7 @@
 package com.meetupon.ticket.controller;
 
 import com.meetupon.ticket.dto.MeetupRequest;
-import com.meetupon.ticket.service.MeetupService;
+import com.meetupon.ticket.service.MeetupServiceImpl;
 import com.meetupon.ticket.exception.MeetupCreateException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class MeetupController {
 
-    private final MeetupService meetupService;
+    private final MeetupServiceImpl meetupService;
 
     @PostMapping
     @PreAuthorize("hasAuthority('ROLE_USER')")

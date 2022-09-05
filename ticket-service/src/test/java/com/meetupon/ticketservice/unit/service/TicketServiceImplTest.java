@@ -7,8 +7,8 @@ import com.meetupon.ticket.dto.TicketResponse;
 import com.meetupon.ticket.model.Meetup;
 import com.meetupon.ticket.model.Ticket;
 import com.meetupon.ticket.repository.TicketRepository;
-import com.meetupon.ticket.service.MeetupService;
-import com.meetupon.ticket.service.TicketService;
+import com.meetupon.ticket.service.MeetupServiceImpl;
+import com.meetupon.ticket.service.TicketServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +28,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-class TicketServiceTest {
+class TicketServiceImplTest {
 
     @Mock
     TicketRepository ticketRepository;
@@ -37,10 +37,10 @@ class TicketServiceTest {
     TicketConverter ticketConverter;
 
     @InjectMocks
-    TicketService ticketService;
+    TicketServiceImpl ticketService;
 
     @Mock
-    MeetupService meetupService;
+    MeetupServiceImpl meetupService;
 
     Ticket ticket;
     TicketRequest ticketRequest;

@@ -5,7 +5,7 @@ import com.meetupon.ticket.dto.MeetupRequest;
 import com.meetupon.ticket.dto.MeetupResponse;
 import com.meetupon.ticket.model.Meetup;
 import com.meetupon.ticket.repository.MeetupRepository;
-import com.meetupon.ticket.service.MeetupService;
+import com.meetupon.ticket.service.MeetupServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class MeetupServiceTest {
+public class MeetupServiceImplTest {
 
     @Mock
     MeetupRepository meetupRepository;
@@ -34,7 +34,7 @@ public class MeetupServiceTest {
     MeetupConverter meetupConverter;
 
     @InjectMocks
-    MeetupService meetupService;
+    MeetupServiceImpl meetupService;
 
     Meetup meetup;
 

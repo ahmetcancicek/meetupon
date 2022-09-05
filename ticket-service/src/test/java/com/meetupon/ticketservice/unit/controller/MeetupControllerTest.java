@@ -6,7 +6,7 @@ import com.meetupon.ticket.dto.Currency;
 import com.meetupon.ticket.dto.MeetupRequest;
 import com.meetupon.ticket.dto.MeetupResponse;
 import com.meetupon.ticket.model.Meetup;
-import com.meetupon.ticket.service.MeetupService;
+import com.meetupon.ticket.service.MeetupServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class MeetupControllerTest {
     protected ObjectMapper mapper;
 
     @MockBean
-    protected MeetupService meetupService;
+    protected MeetupServiceImpl meetupService;
 
     private Meetup meetup;
     private MeetupResponse meetupResponse;
