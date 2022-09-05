@@ -5,7 +5,7 @@ import com.meetupon.auth.dto.LoginResponse;
 import com.meetupon.auth.dto.RegistrationRequest;
 import com.meetupon.auth.dto.LoginRequest;
 import com.meetupon.auth.dto.RegistrationResponse;
-import com.meetupon.auth.service.AuthService;
+import com.meetupon.auth.service.AuthServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class AuthController extends BaseController {
 
-    private final AuthService authService;
+    private final AuthServiceImpl authService;
 
     @PostMapping("/register")
     public ApiResponse<RegistrationResponse> registerUser(@Valid @RequestBody RegistrationRequest registrationRequest) {

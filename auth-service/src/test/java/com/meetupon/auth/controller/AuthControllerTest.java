@@ -6,7 +6,7 @@ import com.meetupon.auth.dto.LoginResponse;
 import com.meetupon.auth.dto.RegistrationRequest;
 import com.meetupon.auth.dto.RegistrationResponse;
 import com.meetupon.auth.exception.AuthApiBusinessException;
-import com.meetupon.auth.service.AuthService;
+import com.meetupon.auth.service.AuthServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ class AuthControllerTest {
     private ObjectMapper mapper;
 
     @MockBean
-    private AuthService authService;
+    private AuthServiceImpl authService;
 
     @MockBean
     private JwtDecoder jwtDecoder;

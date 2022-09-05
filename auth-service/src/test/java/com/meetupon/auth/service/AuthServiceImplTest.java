@@ -24,10 +24,10 @@ import static org.mockito.BDDMockito.given;
 
 
 @ExtendWith(MockitoExtension.class)
-class AuthServiceTest {
+class AuthServiceImplTest {
 
     @InjectMocks
-    private AuthService authService;
+    private AuthServiceImpl authService;
 
     @Mock
     private KeycloakProvider keycloakProvider;
