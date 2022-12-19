@@ -1,12 +1,8 @@
 package com.meetupon.auth.exception;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@Getter
-@Setter
 @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
 public class AuthApiBusinessException extends RuntimeException {
 
@@ -23,5 +19,13 @@ public class AuthApiBusinessException extends RuntimeException {
         super(key);
         this.key = key;
         this.args = args;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public String[] getArgs() {
+        return args;
     }
 }
