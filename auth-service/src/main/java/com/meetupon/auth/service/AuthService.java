@@ -11,8 +11,8 @@ public interface AuthService {
 
     LoginResponse authenticateUser(LoginRequest loginRequest);
 
-    Boolean isEmailAlreadyExists(String email);
+    boolean isEmailAlreadyExists(String email);
 
-    Boolean isUsernameAlreadyExists(String username);
+    boolean isUsernameAlreadyExists(String username);
 
 }
