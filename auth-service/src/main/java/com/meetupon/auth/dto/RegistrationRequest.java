@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 
 public class RegistrationRequest {
 
-    @Email
+    @Email(message = "client.notValidEmail")
     @NotBlank(message = "client.requiredField")
     private String email;
 
