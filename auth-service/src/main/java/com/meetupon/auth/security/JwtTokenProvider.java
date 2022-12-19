@@ -9,13 +9,11 @@ import org.keycloak.representations.AccessTokenResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
 
 @Component
 public class JwtTokenProvider {
 
     private final String clientSecret;
-
     private final String clientId;
     private final String serverUrl;
     private final String realm;
