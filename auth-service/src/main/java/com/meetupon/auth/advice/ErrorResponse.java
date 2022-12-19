@@ -1,13 +1,9 @@
-package com.meetupon.auth.common.rest;
+package com.meetupon.auth.advice;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Date;
 
-@Getter
-@Setter
 public class ErrorResponse {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")

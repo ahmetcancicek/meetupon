@@ -1,4 +1,4 @@
-package com.meetupon.auth.common.rest;
+package com.meetupon.auth.advice;
 
 public class ResponseBuilder {
 
