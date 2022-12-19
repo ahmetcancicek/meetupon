@@ -1,8 +1,8 @@
 package com.meetupon.auth.controller;
 
-import com.meetupon.auth.common.rest.ApiResponse;
-import com.meetupon.auth.common.rest.ErrorResponse;
-import com.meetupon.auth.common.rest.ResponseBuilder;
+import com.meetupon.auth.advice.ApiResponse;
+import com.meetupon.auth.advice.ErrorResponse;
+import com.meetupon.auth.advice.ResponseBuilder;
 
 public class BaseController {
 
